@@ -16,9 +16,12 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="wordcomb"
         android:icon="@mipmap/ic_launcher">
-        <meta-data
+    <meta-data
+        android:name="flutterEmbedding"
+        android:value="2" />
+        <!-- <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8524957116437815~5437189004"/>
+            android:value="ca-app-pub-8524957116437815~5437189004"/> -->
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
