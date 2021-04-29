@@ -21,6 +21,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   admob_flutter: "^0.3.4"
+  get: ^4.1.4
 
 dev_dependencies:
   flutter_test:

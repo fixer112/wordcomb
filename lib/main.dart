@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import './listview.dart';
-import 'package:admob_flutter/admob_flutter.dart';
+//import 'package:admob_flutter/admob_flutter.dart';
 
 void main() {
-  Admob.initialize('ca-app-pub-8524957116437815~5437189004');
+  //Admob.initialize('ca-app-pub-8524957116437815~5437189004');
   runApp(new MaterialApp(
     theme: ThemeData(
       primarySwatch: Colors.blue,
@@ -38,9 +38,9 @@ class HomeState extends State<Home> {
   String testID = "ca-app-pub-3940256099942544/6300978111";
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  AdmobInterstitial interstitialAd = AdmobInterstitial(
+  /* AdmobInterstitial interstitialAd = AdmobInterstitial(
     adUnitId: 'ca-app-pub-3940256099942544/1033173712',
-  );
+  ); */
 
   _loadJson() async {
     String jsonCrossword = await DefaultAssetBundle.of(context)
@@ -48,6 +48,8 @@ class HomeState extends State<Home> {
     //return await DefaultAssetBundle.of(context).loadString('assets/data/crossword.json');
     //return jsonCrossword;
     jsonWord = jsonDecode(jsonCrossword);
+    // var data = await Request().getDick();
+    // print(data.body);
   }
 
   permutation(String str, String prefix, int lengthOfPermutationString) async {
@@ -61,8 +63,18 @@ class HomeState extends State<Home> {
 
     } else {
       for (int i = 0; i < str.length; i++) {
-        permutation(str, prefix + str[i], lengthOfPermutationString);
+        // ith character of str
+
+        // Rest of the string after excluding
+        // the ith character
+        String ros = str.substring(0, i) + str.substring(i + 1);
+
+        // Recurvise call
+        permutation(ros, prefix + str[i], lengthOfPermutationString);
       }
+      // for (int i = 0; i < str.length; i++) {
+      //   permutation(str, prefix + str[i], lengthOfPermutationString);
+      // }
     }
     words = words.toSet().toList();
     return words;
@@ -78,7 +90,7 @@ class HomeState extends State<Home> {
   void dispose() {
     wordController.dispose();
     lengthController.dispose();
-    interstitialAd.dispose();
+    //interstitialAd.dispose();
     super.dispose();
   }
 
@@ -93,10 +105,10 @@ class HomeState extends State<Home> {
       body: Container(
         child: Column(
           children: <Widget>[
-            AdmobBanner(
+            /* AdmobBanner(
               adUnitId: testID,
               adSize: AdmobBannerSize.BANNER,
-            ),
+            ), */
             Padding(padding: EdgeInsets.all(10.0)),
             Container(
               padding: EdgeInsets.only(left: 10.0, right: 10.0),
@@ -144,6 +156,7 @@ class HomeState extends State<Home> {
                               if (int.parse(value) > wordLength) {
                                 return 'Cannot be greater than $wordLength';
                               }
+                              return null;
                             },
                             keyboardType: TextInputType.numberWithOptions(),
                             style: TextStyle(
@@ -177,15 +190,15 @@ class HomeState extends State<Home> {
                             // final snackBar = SnackBar(content: Text('Loading Unscrambled Words......'));
                             // _scaffoldKey.currentState.showSnackBar(snackBar);
 
-                            if ((_clicks % 5 == 0 || _clicks == 2) &&
-                                enableClick) {
-                              interstitialAd.load();
-                              interstitialAd.show();
-                            }
-                            if (_clicks >= 10) {
-                              enableClick = false;
-                            }
-                            _clicks++;
+                            // if ((_clicks % 5 == 0 || _clicks == 2) &&
+                            //     enableClick) {
+                            //   interstitialAd.load();
+                            //   interstitialAd.show();
+                            // }
+                            // if (_clicks >= 10) {
+                            //   enableClick = false;
+                            // }
+                            // _clicks++;
                             //print("clicking $_clicks");
 
                             setState(() {
@@ -206,10 +219,10 @@ class HomeState extends State<Home> {
               ),
             ),
             Padding(padding: EdgeInsets.all(10.0)),
-            AdmobBanner(
+            /* AdmobBanner(
               adUnitId: testID,
               adSize: AdmobBannerSize.BANNER,
-            ),
+            ), */
             Center(
               child:
                   Text("Total Unscrambled Words : " + words.length.toString()),
@@ -217,10 +230,10 @@ class HomeState extends State<Home> {
             Expanded(
               child: Lister(data: words),
             ),
-            AdmobBanner(
+            /* AdmobBanner(
               adUnitId: testID,
               adSize: AdmobBannerSize.BANNER,
-            ),
+            ), */
           ],
         ),
       ),
